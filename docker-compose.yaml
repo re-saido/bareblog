@@ -1,12 +1,10 @@
-# Copy to compose.yaml, put BLOG_TOKEN=... in .env, then: docker compose up -d
+# put BLOG_TOKEN=... in .env, then: docker compose up -d
 services:
   blog:
     build: .
     restart: unless-stopped
-    ports:
-      # Publishes on every interface. To keep it private, bind one address,
-      # e.g. "127.0.0.1:8000:8000" or your tailnet IP.
-      - "8000:8000"
+    expose:
+      - "8000"
     environment:
       BLOG_TOKEN: ${BLOG_TOKEN:?set BLOG_TOKEN in .env}
       BLOG_TITLE: ${BLOG_TITLE:-sumo}
