@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title or conf.title }}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+<a class="title" href="/"><h2>{{ conf.title }}</h2></a>
+{% if conf.subtitle %}
+<p class="subtitle">{{ conf.subtitle }}</p>
+{% endif %}
+<nav><a href="/">Home</a>{% for name, label in nav %} <a href="/{{ name }}">{{ label }}</a>{% endfor %}
+{%- if admin %} <a href="/edit">Post</a> <a href="/admin">Files</a> <a href="/edit?key={{ settings_key }}">Settings</a> <a href="/passkeys">Passkeys</a> <a href="/logout">Log out</a>{% endif %}</nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+{% if conf.powered_by %}
+<footer>Powered by <a href="https://github.com/re-saido/bareblog">sumo</a> =^･ω･^=</footer>
+{% endif %}
+</body>
+</html>

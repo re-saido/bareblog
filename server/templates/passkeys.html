@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Passkeys</h1>
+<p class="error">{{ error }}</p>
+<ul class="blog-posts">
+{% for p in passkeys %}
+<li><span>{{ p.added }}</span>{{ p.name }}{% if p.last_used %} · last used {{ p.last_used }}{% endif %}
+<form method="post" action="/passkeys" class="inline"><input type="hidden" name="id" value="{{ p.id }}">
+<button name="action" value="remove" data-confirm="Remove this passkey?" onclick="return confirm(this.dataset.confirm)">Remove</button></form></li>
+{% else %}
+<li>No passkeys yet.</li>
+{% endfor %}
+</ul>
+{% if origin %}
+<p><input id="passkey-name" placeholder="Name, e.g. Phone"> <button id="add-passkey">Add a passkey</button></p>
+<p id="passkey-status" class="error"></p>
+<script src="/static/passkey.js" data-origin="{{ origin }}"></script>
+{% else %}
+<p>Passkeys need HTTPS. Set <code>BLOG_ORIGIN</code> to this blog's address,
+e.g. <code>https://blog.example.com</code>, and restart.</p>
+{% endif %}
+<h2>API token</h2>
+{% if token_enabled %}
+<p>The token logs in here and lets the API and CLI write.
+Once you have a passkey you can turn it off. That also logs out every browser, including this one.</p>
+<form method="post" action="/passkeys"><button name="action" value="token-off"{% if not passkeys %} disabled{% endif %}
+data-confirm="Turn off the token? You'll need a passkey to log in, and the API and CLI won't be able to write."
+onclick="return confirm(this.dataset.confirm)">Turn off the token</button></form>
+{% else %}
+<p>The token is off: only passkeys can log in, and the API and CLI can't write.</p>
+<form method="post" action="/passkeys"><button name="action" value="token-on">Turn the token back on</button></form>
+{% endif %}
+{% endblock %}

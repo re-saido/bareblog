@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{# A post or page. Only posts show a date. #}
+{% block content %}
+{% set edit %}<a href="/edit?key={{ name }}.md">edit</a>{% endset %}
+<h1>{{ title }}</h1>
+{% if meta.type == "post" %}
+<p><i><time>{{ meta.get("date", "") }}</time></i>{% if admin %} · {{ edit }}{% endif %}</p>
+{% elif admin %}
+<p>{{ edit }}</p>
+{% endif %}
+<content>
+{{ body|markdown }}
+</content>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Files</h1>
+<ul class="blog-posts">
+{% for kind, key, href in rows %}
+<li><span>{{ kind }}</span><a href="{{ href }}">{{ key }}</a></li>
+{% else %}
+<li>No files yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

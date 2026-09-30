@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Log in</h1>
+<p class="error">{{ error }}</p>
+{% if token_enabled %}
+<form method="post" action="/login">
+<input type="password" name="token" placeholder="token" autofocus>
+<button>Log in</button>
+</form>
+{% endif %}
+{% if passkeys %}
+<p><button id="passkey-login">Log in with a passkey</button></p>
+<p id="passkey-status" class="error"></p>
+<script src="/static/passkey.js" data-origin="{{ origin }}"></script>
+{% elif not token_enabled %}
+<p>The token is off and passkeys need <code>BLOG_ORIGIN</code> set.
+Run <code>python server.py enable-token</code> on the server to turn the token back on.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{{ intro|markdown }}
+<ul class="blog-posts">
+{% for name, meta in posts %}
+<li><span><time>{{ meta.get("date", "") }}</time></span><a href="/{{ name }}">{{ title_of(name, meta) }}</a></li>
+{% else %}
+<li>No posts yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

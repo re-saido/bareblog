@@ -1,0 +1,155 @@
+/* sumo theme: plain paper, serif text, neutral greys.
+   Buttons are deliberately left as the browser default. */
+:root {
+  --width: 640px;
+  --font-text: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+  --font-head: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --paper: #fafafa;
+  --ink: #222;
+  --muted: #777;
+  --accent: #1a4fa0;
+  --accent-visited: #5b4a8a;
+  --rule: #ddd;
+  --code-bg: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #181818;
+    --ink: #ddd;
+    --muted: #999;
+    --accent: #7fb0f0;
+    --accent-visited: #b3a4d8;
+    --rule: #333;
+    --code-bg: #242424;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: var(--width);
+  margin: auto;
+  padding: 32px 20px 20px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.1em;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+
+main { flex: 1; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5em; padding-bottom: 0.6em; }
+nav { font-family: var(--font-head); font-size: 0.9em; }
+nav a { margin-right: 14px; text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+
+.title { color: var(--ink); text-decoration: none; }
+.title h2 { margin: 0 0 0.2em; font-size: 1.6em; }
+.subtitle { margin: 0 0 0.6em; color: var(--muted); }
+
+time {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+img { max-width: 100%; border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 1px 5px;
+  background: var(--code-bg);
+  border-radius: 4px;
+}
+
+pre {
+  padding: 14px 16px;
+  background: var(--code-bg);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+pre code { padding: 0; background: none; }
+
+blockquote {
+  margin-left: 0;
+  padding-left: 1.2em;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+footer {
+  padding: 28px 0 8px;
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+ul.blog-posts { list-style: none; padding: 0; }
+ul.blog-posts li { display: flex; align-items: baseline; padding: 4px 0; }
+ul.blog-posts li span { flex: 0 0 130px; }
+ul.blog-posts li a { text-decoration: none; }
+ul.blog-posts li a:hover { text-decoration: underline; }
+ul.blog-posts li a:visited { color: var(--accent-visited); }
+
+/* Admin: login + editor. Buttons intentionally unstyled. */
+/* 16px minimum stops iOS Safari zooming in on focus. */
+input, textarea {
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.editor input:not([type=checkbox]), .editor textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.editor textarea {
+  font-family: var(--font-mono);
+  resize: vertical;
+  /* Grow with the text where supported. */
+  field-sizing: content;
+  min-height: 10em;
+  max-height: 70vh;
+}
+
+.editor textarea.dropping { outline: 2px dashed var(--accent); }
+
+.upload { font-size: 0.9em; }
+.upload input[type=file] { display: inline; width: auto; border: 0; padding: 0; margin: 0 0 0 4px; }
+#upload-status { white-space: pre-line; }
+#upload-status:empty { display: none; }
+
+form.inline { display: inline; }
+
+.error { color: #c0392b; }
+.error:empty { display: none; }
